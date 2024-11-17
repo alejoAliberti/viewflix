@@ -7,6 +7,25 @@ class MediaContent:
         self.category = category
         self.id = id
         self.watched_date = datetime.now()  # Fecha de visualización
+        self.rating = None
+
+    def __lt__(self, other) -> bool:
+        """Sobrecarga del operador < usando rating como criterio"""
+        if not isinstance(other, MediaContent):
+            return NotImplemented
+        return self.rating < other.rating
+
+    def __gt__(self, other) -> bool:
+        """Sobrecarga del operador > usando rating como criterio"""
+        if not isinstance(other, MediaContent):
+            return NotImplemented
+        return self.rating > other.rating
+
+    def __eq__(self, other) -> bool:
+        """Sobrecarga del operador == usando name o id como criterio"""
+        if not isinstance(other, MediaContent):
+            return NotImplemented
+        return self.name == other.name or self.id == other.id
 
 class Movie(MediaContent):
     def __init__(self, name: str, category: str, duration: int, id: int) -> None:
