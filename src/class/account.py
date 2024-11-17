@@ -7,7 +7,10 @@ class Account:
         self.password = password
         self.profiles = profiles
         self.id = id
-                              
-
-
+        
+    def add_profile(self, profile: User) -> None:  #"agregar perfil relacionado con el usuario"
+        self.profiles.append(profile) 
+    
+    def remove_profile(self, profile: User) -> None: #"eliminar perfil relacionado con el usuario"
+        self.profiles.remove(profile)
 
