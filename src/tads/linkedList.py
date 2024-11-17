@@ -54,15 +54,49 @@ class LinkedList:
         """Retorna el tamaño de la lista"""
         return self.size
     
-    def search(self, data) -> bool:
-        """Busca un elemento en la lista"""
-        current = self.head
-        while current:
-            if current.data == data:
+    def search(self, data=None, name=None, node=None) -> bool:
+            """
+            Busca un elemento en la lista de manera recursiva.
+            - `data`: El dato a buscar.
+            - `name`: Un atributo opcional que también puede usarse como criterio de búsqueda.
+            """
+            # Si es la primera llamada, comienza desde la cabeza
+            if node is None:
+                node = self.head
+
+            # Caso base: Si el nodo es None, hemos llegado al final
+            if node is None:
+                return False
+
+            # Verifica si el nodo actual cumple con la búsqueda. Ademas aplicamos una busqueda parcial por nombre.
+            if data is not None and node.data == data:
                 return True
-            current = current.next
-        return False
+
+            # Llama recursivamente con el siguiente nodo
+            return self.search(data, name, node.next)
     
+    def search_by_name(self, name: str, node=None, results=None) -> list:
+        """
+        Busca nodos cuyo atributo `name` coincida parcialmente con el valor proporcionado.
+        Retorna una lista de nodos coincidentes.
+        """
+        # Inicialización de parámetros en la primera llamada
+        if node is None:
+            node = self.head
+            results = []
+
+        # Caso base: Si llegamos al final de la lista, retornamos los resultados
+        if node is None:
+            return results
+
+        # Verificar si el atributo `name` contiene la subcadena buscada
+        if name in str(getattr(node, 'name', "")):
+            results.append(node)
+
+        # Llamada recursiva al siguiente nodo
+        return self.search_by_name(name, node.next, results)
+
+        
     def clear(self) -> None:
         """Elimina todos los elementos de la lista"""
         self.head = None
