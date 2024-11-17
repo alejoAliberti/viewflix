@@ -35,6 +35,20 @@ class Catalog:
         for movie in movies:
             self.movies.append(movie)
 
-    def search_content(self, name: str) -> MediaContent:
-        """Busca una contenido por su título"""
+    def search_content(self, name: str, preferences: List[str] = None) -> MediaContent:
+        """Busca un contenido por su título"""
         
+        """Busca un nodo por su nombre en el arbol general"""
+        series = self.series.find_nodes_by_name(name=name)
+        if series is not None:
+            return series
+        
+        """Busca nodo por nombre en la lista enlazada"""
+        movies = self.movies.search_by_name(name=name)
+        if movies is not None:
+            return movies
+        return None 
+    
+    #TODO: Busqueda por preferencias, debemos mergear las listas series y movies, luego ordenar por rating y preferencias.
+    
+
