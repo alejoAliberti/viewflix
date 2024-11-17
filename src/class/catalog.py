@@ -27,11 +27,11 @@ class Catalog:
         pass
         
     def set_series(self, series: List[Serie]) :  #Construimos el arbol general
-        """Retorna una serie"""
+        """Agrega una lista de series al árbol general"""
         pass
     
     def set_movies(self, movies: List[Movie]) :
-        """Retorna una película"""
+        """Agrega una lista de películas a la lista enlazada"""
         for movie in movies:
             self.movies.append(movie)
 
