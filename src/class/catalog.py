@@ -5,6 +5,7 @@ from media import MediaContent
 from tads.linkedList import LinkedList
 from tads.generalTree import GeneralTree
 from tads.binarySearch import BinarySearchTree
+from utils.catalogHelpers import sortContentByPreference
 
 class Catalog:
     def __init__(self):
@@ -39,16 +40,19 @@ class Catalog:
         """Busca un contenido por su título"""
         
         """Busca un nodo por su nombre en el arbol general"""
+        result = []
         series = self.series.find_nodes_by_name(name=name)
         if series is not None:
-            return series
+            result.append(series)
         
         """Busca nodo por nombre en la lista enlazada"""
         movies = self.movies.search_by_name(name=name)
         if movies is not None:
-            return movies
-        return None 
-    
-    #TODO: Busqueda por preferencias, debemos mergear las listas series y movies, luego ordenar por rating y preferencias.
-    
+            result.append(movies)
+        
+        if len(result) == 0:
+            return None
+        else:
+            """Ordenamos el resultado por preferencias y rating"""
+            return sortContentByPreference(result, preferences)    
 
