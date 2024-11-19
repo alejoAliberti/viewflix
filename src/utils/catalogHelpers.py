@@ -1,3 +1,6 @@
+from interfaces.media import MediaContent
+from typing import List
+
 def sortContentByPreference(content_list: List[MediaContent], preferences: List[str]) -> List[MediaContent]:
     """
     Ordena una lista de contenido basada en el rating y las preferencias del usuario.

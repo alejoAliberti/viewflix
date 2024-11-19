@@ -7,25 +7,41 @@ class MediaContent:
         self.category = category
         self.id = id
         self.watched_date = datetime.now()  # Fecha de visualización
+        self._ratings = []       
         self.rating = None
+        self.views = 0
 
     def __lt__(self, other) -> bool:
-        """Sobrecarga del operador < usando rating como criterio"""
+        """Sobrecarga del operador < usando views como criterio"""
         if not isinstance(other, MediaContent):
             return NotImplemented
-        return self.rating < other.rating
+        return self.views < other.views
 
     def __gt__(self, other) -> bool:
-        """Sobrecarga del operador > usando rating como criterio"""
+        """Sobrecarga del operador > usando views como criterio"""
         if not isinstance(other, MediaContent):
             return NotImplemented
-        return self.rating > other.rating
+        return self.views > other.views
 
     def __eq__(self, other) -> bool:
         """Sobrecarga del operador == usando name o id como criterio"""
         if not isinstance(other, MediaContent):
             return NotImplemented
         return self.name == other.name or self.id == other.id
+    
+    def add_view(self) -> None:
+        """Añade una vista al contenido"""
+        self.views += 1
+    
+    def get_views(self) -> int:
+        """Retorna el número de vistas del contenido"""
+        return self.views
+    
+    def add_rating(self, score: float) -> None:
+        """Añade una nueva puntuación y actualiza el rating promedio"""
+        if 0 <= score <= 5: 
+            self.ratings.append(score)
+            self.rating = sum(self.ratings) / len(self.ratings)
 
 class Movie(MediaContent):
     def __init__(self, name: str, category: str, duration: int, id: int) -> None:

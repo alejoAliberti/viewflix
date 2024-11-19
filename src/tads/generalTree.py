@@ -1,4 +1,3 @@
-
 from typing import List, Any
 
 class Node:
@@ -87,3 +86,57 @@ class GeneralTree:
     def clear(self) -> None:
         """Elimina todos los nodos del árbol"""
         self.root = None
+
+    def dfs_traverse(self, node: Node = None):
+        """
+        Recorre el árbol en profundidad (Depth-First Search)
+        Yields cada nodo en el recorrido
+        """
+        if node is None:
+            node = self.root
+            if node is None:
+                return
+
+        yield node  # Primero visitamos el nodo actual
+        
+        for child in node.children:
+            yield from self.dfs_traverse(child)  # Recursivamente visitamos los hijos
+            
+    def bfs_traverse(self):
+        """
+        Recorre el árbol en anchura (Breadth-First Search)
+        Yields cada nodo en el recorrido
+        """
+        if self.root is None:
+            return
+            
+        cola = [self.root]
+        while cola:
+            node = cola.pop(0)
+            yield node
+            cola.extend(node.children)
+    
+    def bfs_traverse_with_depth(self, max_depth: int = 1):
+        """
+        Recorre el árbol en anchura hasta una profundidad máxima
+        Args:
+            max_depth: Profundidad máxima del recorrido (0 es solo la raíz, 1 incluye los hijos directos)
+        Yields cada nodo en el recorrido
+        """
+        if self.root is None:
+            return
+            
+        # Cola con tuplas de (nodo, nivel)
+        cola = [(self.root, 0)]
+        
+        while cola:
+            node, nivel = cola.pop(0)
+            
+            if nivel > max_depth:
+                break
+                
+            yield node
+            
+            if nivel < max_depth:
+                for child in node.children:
+                    cola.append((child, nivel + 1))
