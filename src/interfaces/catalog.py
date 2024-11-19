@@ -11,22 +11,27 @@ class Catalog:
     def __init__(self):
         self.movies = LinkedList()
         self.series = GeneralTree() #Punto 4 (arbol gral)
-        self.most_popular = BinarySearchTree()
-        self.add_most_popular_movie = BinarySearchTree() #Arbol de busqueda
-        self.add_most_popular_series = BinarySearchTree() #Arbol de busqueda
+        self.most_popular = BinarySearchTree() #Arbol de busqueda
+        self.most_popular_movie = BinarySearchTree() #Arbol de busqueda
+        self.most_popular_series = BinarySearchTree() #Arbol de busqueda
         
     def add_most_popular(self) -> None: #Funciones que agregan contenido a la lista de más populares
         """Añade un contenido a la lista de más populares"""
-        pass
+        for movie in self.movies:
+            self.most_popular_movie.insert(movie)
+        for serie in self.series.bfs_traverse_with_depth(max_depth=1):
+            self.most_popular_series.insert(serie)
         
     def add_most_popular_movies(self) -> None:
         """Añade una película a la lista de más populares"""
-        pass
+        for movie in self.movies:
+            self.most_popular_movie.insert(movie)
         
     def add_most_popular_series(self) -> None:  
         """Añade una serie a la lista de más populares"""
-        pass
-        
+        for serie in self.series.bfs_traverse_with_depth(max_depth=1):
+            self.most_popular_series.insert(serie)
+
     def set_series(self, series: List[Serie]) :  #Construimos el arbol general
         """Retorna una serie"""
         pass
@@ -43,12 +48,12 @@ class Catalog:
         result = []
         series = self.series.find_nodes_by_name(name=name)
         if series is not None:
-            result.append(series)
+            result.extend(series)
         
         """Busca nodo por nombre en la lista enlazada"""
         movies = self.movies.search_by_name(name=name)
         if movies is not None:
-            result.append(movies)
+            result.extend(movies)
         
         if len(result) == 0:
             return None
