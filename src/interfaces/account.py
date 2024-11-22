@@ -8,6 +8,11 @@ class Account:
         self.profiles = profiles
         self.id = id
                               
-
+    def add_profile(self, profile: User) -> None:
+        """Añade un nuevo perfil al usuario"""
+        if len(self.profiles) < 5:  
+            self.profiles.append(profile)
+        else:
+            raise ValueError("El usuario ya tiene 5 perfiles")
 
 

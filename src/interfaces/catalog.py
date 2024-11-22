@@ -6,6 +6,7 @@ from tads.linkedList import LinkedList
 from tads.generalTree import GeneralTree
 from tads.binarySearch import BinarySearchTree
 from utils.catalogHelpers import sortContentByPreference
+from tads.generalTree import Node
 
 class Catalog:
     def __init__(self):
@@ -32,14 +33,24 @@ class Catalog:
         for serie in self.series.bfs_traverse_with_depth(max_depth=1):
             self.most_popular_series.insert(serie)
 
-    def set_series(self, series: List[Serie]) :  #Construimos el arbol general
+    def set_serie(self, serie: Serie) :  #Construimos el arbol general
         """Retorna una serie"""
-        pass
+        if self.series.is_empty():
+            emptyNode = Node(serie)
+            return self.series.add_root(emptyNode)
+        else:
+            self.series.add_child(self.series.root, serie)
+            parent = self.series.find_node(serie)
+            for season in serie.seasons:
+                seasonNode = Node(season)
+                self.series.add_child(parent, seasonNode)
+                for episode in season.episodes:
+                    episodeNode = Node(episode)
+                    self.series.add_child(seasonNode, episodeNode)
     
-    def set_movies(self, movies: List[Movie]) :
+    def set_movies(self, movie: Movie) :
         """Retorna una película"""
-        for movie in movies:
-            self.movies.append(movie)
+        self.movies.append(movie)
 
     def search_content(self, name: str, preferences: List[str] = None) -> MediaContent:
         """Busca un contenido por su título"""
@@ -59,5 +70,5 @@ class Catalog:
             return None
         else:
             """Ordenamos el resultado por preferencias y rating"""
-            return sortContentByPreference(result, preferences)    
+            return sortContentByPreference(result, preferences)   
 
