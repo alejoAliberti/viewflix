@@ -2,7 +2,7 @@ from typing import List
 from datetime import datetime
 
 class MediaContent:
-    def __init__(self, name: str, category: str, id: int) -> None:
+    def __init__(self, name: str, category: str, id: int, cast: List[str] = []) -> None:
         self.name = name
         self.category = category
         self.id = id
@@ -10,6 +10,7 @@ class MediaContent:
         self._ratings = []       
         self.rating = None
         self.views = 0
+        self.cast = cast
 
     def __lt__(self, other) -> bool:
         """Sobrecarga del operador < usando views como criterio"""
