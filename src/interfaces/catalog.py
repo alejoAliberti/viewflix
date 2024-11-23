@@ -7,6 +7,7 @@ from tads.generalTree import GeneralTree
 from tads.binarySearch import BinarySearchTree
 from utils.catalogHelpers import sortContentByPreference
 from tads.generalTree import Node
+from tads.recomendationsGraph import Graph
 
 class Catalog:
     def __init__(self):
@@ -15,6 +16,7 @@ class Catalog:
         self.most_popular = BinarySearchTree() #Arbol de busqueda
         self.most_popular_movie = BinarySearchTree() #Arbol de busqueda
         self.most_popular_series = BinarySearchTree() #Arbol de busqueda
+        self.recommendations_graph = Graph()
         
     def add_most_popular(self) -> None: #Funciones que agregan contenido a la lista de más populares
         """Añade un contenido a la lista de más populares"""
@@ -69,4 +71,32 @@ class Catalog:
             return None
         else:
             """Ordenamos el resultado por preferencias y rating"""
-            return sortContentByPreference(result, preferences)     
+            return sortContentByPreference(result, preferences)
+    
+    def update_recommendations_graph(self):
+        """Actualiza el grafo de recomendaciones basado en el contenido actual"""
+        # Obtener todo el contenido
+        all_content = []
+        for movie in self.movies:
+            all_content.append(movie)
+        for serie in self.series.bfs_traverse():
+            all_content.append(serie.data)
+            
+        # Crear conexiones entre contenido similar
+        for i in range(len(all_content)):
+            for j in range(i + 1, len(all_content)):
+                similarity = self.recommendations_graph.calculate_similarity(
+                    all_content[i], 
+                    all_content[j]
+                )
+                if similarity > 0:
+                    self.recommendations_graph.add_edge(
+                        all_content[i],
+                        all_content[j],
+                        similarity
+                    )    
+    
+    def get_recommendations(self, content, limit=5):
+        """Obtiene recomendaciones para un contenido específico"""
+        return self.recommendations_graph.get_recommendations(content, limit)       
+
