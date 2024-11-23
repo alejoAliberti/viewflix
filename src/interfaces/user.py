@@ -2,6 +2,7 @@ from typing import List, Dict, Any
 from media import MediaContent
 from tads.linkedList import LinkedList
 from tads.stack import Stack
+from tads.maxHeap import MaxHeap
 
 class User:
     def __init__(self, name: str, age: int, preferences: List[str]):
@@ -10,6 +11,7 @@ class User:
         self.age = age
         self.preferences = preferences #['drama', 'action', 'terror']
         self.history = Stack()  # Inicializamos el historial vacío
+        self.watchlist = MaxHeap()
 
     def add_preference(self, preference: str) -> None:
         """Añade una preferencia al usuario"""
@@ -57,6 +59,10 @@ class User:
     def is_favorite(self, content: MediaContent) -> bool:
         """Verifica si un contenido está en favoritos"""
         return self.favorites.search(content)
+    
+    def set_watchlist(self, content: MediaContent):
+        """Agregamos un item a la watchlist"""""
+        return self.watchlist.insert(content, content.views)
     
 
         

@@ -44,11 +44,10 @@ class Catalog:
             self.series.add_child(self.series.root, serie)
             parent = self.series.find_node(serie)
             for season in serie.seasons:
-                seasonNode = Node(season)
-                self.series.add_child(parent, seasonNode)
+                self.series.add_child(parent, season)
+                seasonParent = self.series.find_node(season)
                 for episode in season.episodes:
-                    episodeNode = Node(episode)
-                    self.series.add_child(seasonNode, episodeNode)
+                    self.series.add_child(seasonParent, episode)
     
     def set_movies(self, movie: Movie) :
         """Retorna una película"""
