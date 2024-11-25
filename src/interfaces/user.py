@@ -63,7 +63,3 @@ class User:
     def set_watchlist(self, content: MediaContent):
         """Agregamos un item a la watchlist"""""
         return self.watchlist.insert(content, content.views)
-    
-
-        
-

@@ -65,3 +65,53 @@ class Graph:
         # Ordena por peso de similitud y retorna los top N
         recommendations.sort(key=lambda x: x[1], reverse=True)
         return recommendations[:limit]
+    
+    def get_recommendations_dfs(self, content, limit=5, min_similarity=0.3):
+        """Obtiene recomendaciones usando DFS para explorar en profundidad contenidos similares"""
+        if content not in self.vertices:
+            return []
+            
+        visited = set()
+        recommendations = []
+        
+        def dfs_helper(current_content, depth=0, max_depth=3):
+            if depth >= max_depth or len(recommendations) >= limit:
+                return
+                
+            visited.add(current_content)
+            
+            # Obtiene los vecinos ordenados por peso de similitud
+            neighbors = [(edge.dest, edge.weight) for edge in self.vertices[current_content]]
+            neighbors.sort(key=lambda x: x[1], reverse=True)
+            
+            for neighbor, similarity in neighbors:
+                if neighbor not in visited and similarity >= min_similarity:
+                    recommendations.append((neighbor, similarity))
+                    dfs_helper(neighbor, depth + 1)
+                    
+        dfs_helper(content)
+        return recommendations[:limit]
+    
+    def get_recommendations_bfs(self, content, limit=5, min_similarity=0.3):
+        """Obtiene recomendaciones usando BFS para explorar contenidos similares por niveles"""
+        if content not in self.vertices:
+            return []
+            
+        visited = set([content])
+        queue = [(content, 0)]  # (contenido, nivel)
+        recommendations = []
+        
+        while queue and len(recommendations) < limit:
+            current_content, level = queue.pop(0)
+            
+            # Obtiene los vecinos ordenados por peso de similitud
+            neighbors = [(edge.dest, edge.weight) for edge in self.vertices[current_content]]
+            neighbors.sort(key=lambda x: x[1], reverse=True)
+            
+            for neighbor, similarity in neighbors:
+                if neighbor not in visited and similarity >= min_similarity:
+                    visited.add(neighbor)
+                    recommendations.append((neighbor, similarity))
+                    queue.append((neighbor, level + 1))
+                    
+        return recommendations[:limit]
