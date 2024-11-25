@@ -98,5 +98,20 @@ class Catalog:
     
     def get_recommendations(self, content, limit=5):
         """Obtiene recomendaciones para un contenido específico"""
-        return self.recommendations_graph.get_recommendations(content, limit)       
+        return self.recommendations_graph.get_recommendations(content, limit)
+    
+    def get_recommendations_by_type(self, content, recommendation_type='bfs', limit=5):
+       """
+       Obtiene recomendaciones basadas en el tipo de recorrido especificado
+       Args:
+           content: Contenido base para las recomendaciones
+           recommendation_type: 'bfs' o 'dfs'
+           limit: Número máximo de recomendaciones
+       """
+       if recommendation_type == 'dfs':
+           # DFS para explorar en profundidad un tipo específico de contenido
+           return self.recommendations_graph.get_recommendations_dfs(content, limit)
+       else:
+           # BFS para obtener recomendaciones más variadas
+           return self.recommendations_graph.get_recommendations_bfs(content, limit)       
 
