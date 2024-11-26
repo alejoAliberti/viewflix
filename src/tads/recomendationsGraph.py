@@ -1,4 +1,6 @@
 from interfaces.media import MediaContent
+from typing import List
+
 
 class Edge:
     def __init__(self, dest, weight=1.0):
