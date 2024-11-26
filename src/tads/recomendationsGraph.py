@@ -202,7 +202,7 @@ class Graph:
                     continue
                         
                 # Calcular nueva satisfacción considerando similitud
-                satisfaction = sum(2 if pref in neighbor.genres else 0 
+                satisfaction = sum(2 if neighbor.category in pref  else 0 
                                 for pref in user.preferences)
                 new_satisfaction = -current_dist + (satisfaction * edge.weight)
                 
