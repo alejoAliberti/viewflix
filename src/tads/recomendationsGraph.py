@@ -1,3 +1,5 @@
+from interfaces.media import MediaContent
+
 class Edge:
     def __init__(self, dest, weight=1.0):
         self.dest = dest
@@ -6,6 +8,7 @@ class Edge:
 class Graph:
     def __init__(self):
         self.vertices = {}  # Diccionario de {contenido: [aristas]}
+        self.dependencies = {}  # Diccionario para almacenar dependencias de contenido
         
     def add_vertex(self, content):
         """Añade un vértice (película o serie) al grafo"""
@@ -115,3 +118,98 @@ class Graph:
                     queue.append((neighbor, level + 1))
                     
         return recommendations[:limit]
+    
+    def add_dependency(self, content_before, content_after):
+        """Añade una dependencia entre dos contenidos (content_before debe estar disponible antes que content_after)"""
+        if content_before not in self.dependencies:
+            self.dependencies[content_before] = []
+        self.dependencies[content_before].append(content_after)
+        
+    def get_content_order(self):
+        """Realiza ordenamiento topológico para obtener el orden de visualización del contenido"""
+        # Inicializar el grado de entrada para cada vértice
+        in_degree = {content: 0 for content in self.vertices}
+        for content in self.dependencies:
+            for dependent in self.dependencies[content]:
+                in_degree[dependent] = in_degree.get(dependent, 0) + 1
+        
+        # Cola para vértices con grado de entrada 0
+        queue = [content for content in in_degree if in_degree[content] == 0]
+        result = []
+        
+        while queue:
+            current = queue.pop(0)
+            result.append(current)
+            
+            # Reducir grado de entrada de los dependientes
+            if current in self.dependencies:
+                for dependent in self.dependencies[current]:
+                    in_degree[dependent] -= 1
+                    if in_degree[dependent] == 0:
+                        queue.append(dependent)
+        
+        # Verificar si hay ciclos
+        if len(result) != len(self.vertices):
+            raise ValueError("El grafo contiene ciclos, no es posible establecer un orden válido")
+            
+        return result
+    
+    def find_optimal_viewing_sequence(self, user, available_time: int) -> List[MediaContent]:
+        """
+        Implementa el algoritmo de Dijkstra para encontrar la secuencia óptima de visualización
+        que maximiza la satisfacción del usuario basado en sus preferencias y tiempo disponible.
+        """
+        # Inicializar distancias y caminos
+        distances = {content: float('inf') for content in self.vertices}
+        previous = {content: None for content in self.vertices}
+        visited = set()
+        
+        # Crear cola de prioridad con todos los contenidos
+        pq = []
+        
+        # Calcular satisfacción inicial para cada contenido basado en preferencias
+        for content in self.vertices:
+            satisfaction = sum(2 if content.category in pref else 0 
+                            for pref in user.preferences)
+            if satisfaction > 0:  # Solo considerar contenido que coincida con preferencias
+                distances[content] = -satisfaction  # Negativo porque queremos maximizar
+                pq.append((distances[content], content))
+        
+        # Ordenar cola de prioridad
+        pq.sort()
+        
+        total_time = 0
+        sequence = []
+        
+        while pq and total_time < available_time:
+            current_dist, current_content = pq.pop(0)
+            
+            if current_content in visited:
+                continue
+                    
+            # Verificar si añadir este contenido excede el tiempo disponible
+            if total_time + current_content.duration > available_time:
+                continue
+                    
+            visited.add(current_content)
+            sequence.append(current_content)
+            total_time += current_content.duration
+            
+            # Explorar vecinos
+            for edge in self.vertices[current_content]:
+                neighbor = edge.dest
+                if neighbor in visited:
+                    continue
+                        
+                # Calcular nueva satisfacción considerando similitud
+                satisfaction = sum(2 if pref in neighbor.genres else 0 
+                                for pref in user.preferences)
+                new_satisfaction = -current_dist + (satisfaction * edge.weight)
+                
+                if -new_satisfaction < distances[neighbor]:
+                    distances[neighbor] = -new_satisfaction
+                    previous[neighbor] = current_content
+                    pq.append((-new_satisfaction, neighbor))
+                    pq.sort()
+                    
+        return sequence
