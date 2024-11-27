@@ -32,10 +32,10 @@ class Stack:
         """Retorna True si la pila está vacía, False en caso contrario"""
         return len(self.items) == 0
 
-    def size(self) -> int:
+    def size(self):
         """Retorna el número de elementos en la pila"""
         return len(self.items)
 
-    def clear(self) -> None:
+    def clear(self):
         """Elimina todos los elementos de la pila"""
         self.items.clear()

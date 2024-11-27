@@ -10,25 +10,25 @@ class GeneralTree:
         """Inicializa un árbol general vacío"""
         self.root = None
     
-    def is_empty(self) -> bool:
+    def is_empty(self):
         """Verifica si el árbol está vacío"""
         return self.root is None
         
-    def add_root(self, data: Any) -> None:
+    def add_root(self, data):
         """Añade la raíz al árbol si está vacío"""
         if self.root is None:
             self.root = Node(data)
         else:
             raise ValueError("El árbol ya tiene una raíz")
             
-    def add_child(self, parent: Node, data: Any) -> None:
+    def add_child(self, parent: Node, data):
         """Añade un hijo al nodo padre especificado"""
         if parent is None:
             raise ValueError("El nodo padre no puede ser None")
         new_node = Node(data)
         parent.children.append(new_node)
         
-    def find_node(self, data: Any = None, node: Node = None) -> Node:
+    def find_node(self, data = None, node: Node = None) -> Node:
         """
         Busca un nodo por su dato o nombre
         Args:

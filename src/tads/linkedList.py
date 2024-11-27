@@ -8,11 +8,11 @@ class LinkedList:
         self.head = None
         self.size = 0
     
-    def is_empty(self) -> bool:
+    def is_empty(self):
         """Verifica si la lista está vacía"""
         return self.head is None
     
-    def append(self, data) -> None:
+    def append(self, data):
         """Añade un elemento al final de la lista"""
         new_node = Node(data)
         if self.head is None:
@@ -75,7 +75,7 @@ class LinkedList:
             # Llama recursivamente con el siguiente nodo
             return self.search(data, name, node.next)
     
-    def search_by_name(self, name: str, node=None, results=None) -> list:
+    def search_by_name(self, name: str, node=None, results=None):
         """
         Busca nodos cuyo atributo `name` coincida parcialmente con el valor proporcionado.
         Retorna una lista de nodos coincidentes.
@@ -102,7 +102,7 @@ class LinkedList:
         self.head = None
         self.size = 0
     
-    def get_all(self) -> list:
+    def get_all(self):
         """Retorna todos los elementos en una lista de Python"""
         elements = []
         current = self.head

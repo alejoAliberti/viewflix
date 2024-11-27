@@ -13,18 +13,18 @@ class User:
         self.history = Stack()  # Inicializamos el historial vacío
         self.watchlist = MaxHeap()
 
-    def add_preference(self, preference: str) -> None:
+    def add_preference(self, preference: str):
         """Añade una preferencia al usuario"""
         self.preferences.append(preference)
     
-    def add_to_history(self, content: MediaContent) -> None:
+    def add_to_history(self, content: MediaContent):
         """Añade una película o serie al historial del usuario"""
         self.history.push(content)
     def get_history(self) -> List[MediaContent]:
         """Retorna el historial completo ordenado por fecha de visualización"""
         return self.history.items  # Lo más reciente primero
     
-    def clear_history(self) -> None:
+    def clear_history(self):
         """Elimina todos los elementos del historial"""
         self.history.clear()
 

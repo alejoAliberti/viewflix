@@ -6,7 +6,7 @@ class MediaContent:
         self.name = name
         self.category = category
         self.id = id
-        self.watched_date = datetime.now()  # Fecha de visualización
+        self.watched_date = datetime.now()
         self._ratings = []       
         self.rating = None
         self.views = 0
