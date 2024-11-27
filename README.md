@@ -32,7 +32,7 @@ El objetivo principal de **ViewFlix** es emular las funcionalidades esenciales d
 
 ---
 
-## 1. Estructuras de Datos Principales
+## 1. Estructuras de Datos Principales :books:
 
 ### 1.1 Catálogo (Catalog)
 
