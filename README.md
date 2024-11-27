@@ -52,7 +52,7 @@ El objetivo principal de **ViewFlix** es emular las funcionalidades esenciales d
 
 ---
 
-### 1.2 Perfil de Usuario (User)
+### 1.2 Perfil de Usuario (User) :bust_in_silhouette:
 
 - **Estructuras:**
   - **favorites:** Lista enlazada.  
@@ -68,12 +68,12 @@ El objetivo principal de **ViewFlix** es emular las funcionalidades esenciales d
 
 ## 2. Algoritmos Clave
 
-### 2.1 Sistema de Recomendaciones
+### 2.1 Sistema de Recomendaciones 
 - Implementación de búsqueda **BFS** y **DFS** para diferentes tipos de recomendaciones.  
   - **BFS:** Proporciona recomendaciones más variadas.  
   - **DFS:** Encuentra recomendaciones más específicas dentro de un género.  
 
-### 2.2 Búsqueda de Contenido
+### 2.2 Búsqueda de Contenido :mag_right:
 - Búsqueda por nombre en múltiples estructuras.  
 - Ordenamiento por preferencias del usuario.  
 - Implementa búsqueda parcial para mejor experiencia.  
@@ -82,7 +82,7 @@ El objetivo principal de **ViewFlix** es emular las funcionalidades esenciales d
 
 ## 3. Optimizaciones
 
-### 3.1 Agregar Contenido Popular
+### 3.1 Agregar Contenido Popular 
 - Mantiene árbol binario de búsqueda para acceso rápido O(log n).  
 - Separación entre películas y series populares.  
 - Actualización periódica para mantener relevancia.  
