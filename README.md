@@ -65,6 +65,20 @@ El objetivo principal de **ViewFlix** es emular las funcionalidades esenciales d
 - La lista enlazada para favoritos permite modificaciones dinámicas eficientes.  
 
 ---
+### 1.3 Clases de Contenido (MediaContent)
+Estructura: La base de los datos de contenido multimedia se gestiona con una jerarquía de clases en Python.
+
+### Componentes:
+- MediaContent: Clase base que define las propiedades y comportamientos generales de cualquier contenido.
+- Movie: Subclase que representa una película, heredando de MediaContent.
+- Series: Subclase que representa una serie, con temporadas y episodios estructurados jerárquicamente.
+- Episode: Clase independiente que representa un episodio de una serie.
+  
+#### Justificación:
+- La clase MediaContent permite abstraer propiedades comunes como nombre, categoría, vistas y calificaciones.
+- La herencia en Movie y Series facilita extender comportamientos específicos para cada tipo de contenido, manteniendo un diseño limpio y escalable.
+- Los episodios se modelan de manera independiente para una representación más flexible dentro de las temporadas de una serie.
+---
 
 ## 2. Algoritmos Clave
 
