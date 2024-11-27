@@ -26,7 +26,7 @@ class Graph:
         self.vertices[content1].append(Edge(content2, similarity))
         self.vertices[content2].append(Edge(content1, similarity))
         
-    def calculate_similarity(self, content1, content2):
+    def calculate_similarity(self, content1, content2) -> int:
         """Calcula la similitud entre dos contenidos"""
         similarity = 0.0
     
@@ -156,7 +156,7 @@ class Graph:
             
         return result
     
-    def find_optimal_viewing_sequence(self, user, available_time: int) -> List[MediaContent]:
+    def find_optimal_viewing_sequence(self, user, available_time):
         """
         Implementa el algoritmo de Dijkstra para encontrar la secuencia óptima de visualización
         que maximiza la satisfacción del usuario basado en sus preferencias y tiempo disponible.

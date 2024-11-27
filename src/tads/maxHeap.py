@@ -10,7 +10,7 @@ class MaxHeap:
     def is_empty(self) -> bool:
         return len(self.heap) == 0
         
-    def insert(self, content, priority) -> None:
+    def insert(self, content, priority):
         """Añade contenido al heap con una prioridad específica"""
         node = Node(content, priority)
         self.heap.append(node)
