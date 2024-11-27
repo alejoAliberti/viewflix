@@ -18,19 +18,19 @@ class Catalog:
         self.most_popular_series = BinarySearchTree() #Arbol de busqueda
         self.recommendations_graph = Graph()
         
-    def add_most_popular(self): #Funciones que agregan contenido a la lista de más populares
+    def build_most_popular(self): #Funciones que agregan contenido a la lista de más populares
         """Añade un contenido a la lista de más populares"""
         for movie in self.movies:
-            self.most_popular_movie.insert(movie)
+            self.most_popular.insert(movie)
         for serie in self.series.bfs_traverse_with_depth(max_depth=1):
-            self.most_popular_series.insert(serie)
+            self.most_popular.insert(serie)
         
-    def add_most_popular_movies(self):
+    def build_most_popular_movies(self):
         """Añade una película a la lista de más populares"""
         for movie in self.movies:
             self.most_popular_movie.insert(movie)
         
-    def add_most_popular_series(self):  
+    def build_most_popular_series(self):  
         """Añade una serie a la lista de más populares"""
         for serie in self.series.bfs_traverse_with_depth(max_depth=1):
             self.most_popular_series.insert(serie)
