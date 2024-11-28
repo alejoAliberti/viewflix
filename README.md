@@ -31,6 +31,10 @@ El objetivo principal de **ViewFlix** es emular las funcionalidades esenciales d
 - **Búsqueda eficiente:** Implementar un buscador eficiente para encontrar contenido de forma rápida.  
 
 ---
+## Diagrama de relaciones
+![image](https://github.com/user-attachments/assets/98cd8d7f-8ba8-4bda-9935-03a393bf3d0a)
+
+---
 
 ## 1. Clases Principales :books:
 
