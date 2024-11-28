@@ -2,7 +2,7 @@ from typing import List
 from datetime import datetime
 
 class MediaContent:
-    def __init__(self, name: str, category: str, id: int, cast: List[str] = [], duration: int = 0) -> None:
+    def __init__(self, name: str, category: str, id: int, publish_date: datetime, type: str, cast: List[str] = [],) -> None:
         self.name = name
         self.category = category
         self.id = id
@@ -11,7 +11,8 @@ class MediaContent:
         self.rating = None
         self.views = 0
         self.cast = cast
-        self.duration= duration
+        self.publish_date = publish_date
+        self.type = type
 
     def __lt__(self, other) -> bool:
         """Sobrecarga del operador < usando views como criterio"""
@@ -46,22 +47,21 @@ class MediaContent:
             self.rating = sum(self.ratings) / len(self.ratings)
 
 class Movie(MediaContent):
-    def __init__(self, name: str, category: str, duration: int, id: int) -> None:
-        super().__init__(name, category, id)
+    def __init__(self, name: str, category: str, duration: int, id: int, cast: List[str], publish_date: datetime) -> None:
+        super().__init__(name, category, id, publish_date, type="movie", cast=cast)
         self.duration = duration
-        self.type = "movie"
+        
 
 class Episode:
-    def __init__(self, name: str, duration: int, episode_number: int) -> None:
+    def __init__(self, name: str, duration: int, episode_number: int,  ) -> None:
         self.name = name
         self.duration = duration
         self.episode_number = episode_number
         self.watched_date = None
 
 class Series(MediaContent):
-    def __init__(self, name: str, category: str, id: int) -> None:
-        super().__init__(name, category, id)
-        self.type = "series" 
+    def __init__(self, name: str, category: str, id: int, cast: List[str], publish_date: datetime) -> None:
+        super().__init__(name, category, id, publish_date, type="series", cast=cast)
         self.seasons = []  # Matriz donde el índice es (temporada - 1)
     
     def add_season(self, episodes: List[Episode]) -> None:
