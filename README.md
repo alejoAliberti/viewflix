@@ -122,7 +122,17 @@ Estructura: La base de los datos de contenido multimedia se gestiona con una jer
 - **Gestionar favoritos:** O(1) - O(n).  
 
 ---
-
+## Conclusión:
+ Los **árboles** fueron fundamentales para mejorar el rendimiento en las búsquedas de contenido, ya
+ que, al implementar búsquedas binarias, se redujo la complejidad algorítmica, mientras que en la
+ **carga de contenido**, particularmente en Movies, se usaron **árboles binarios** para ordenar los
+ **contenidos más populares** según la cantidad de vistas. Además, los **grafos** permitieron establecer
+ relaciones entre contenidos basándose en el rating y el elenco (cast), calculando el peso de las aristas,
+ y el **ordenamiento topológico** facilitó encontrar la secuencia más óptima de visualización según las
+ preferencias del usuario y el tiempo disponible. Para el **historial de contenido**, se utilizó una pila
+ (stack) debido a su comportamiento **LIFO**, logrando que el último contenido visualizado fuera el
+ primero en aparecer en la lista, obteniendo un historial cronológico. Por último, la implementación de
+ un **árbol general** en las series permitió organizar jerárquicamente las series, temporadas y episodios.
   
 
 
